@@ -1,0 +1,115 @@
+<p id="notice"><%= notice %></p>
+
+<% if @cart.status %>
+<% else  %>
+    <div style="float:none">
+      <div style="text-align: center;"><h3>This is the receipt for your order. Thanks!</h3></div>
+    </div>
+<% end %>
+
+<p>
+  <strong>Order Number:</strong>
+  <%= @cart.id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <% if @cart.status %>
+      Active<br>
+  <% else %>
+      Completed<br>
+
+  <% end %>
+  <hr>
+</p>
+
+<p>
+
+  <% if @cart.cart_items.count == 0  %>
+    <h5>There are no items in your cart!</h5>
+
+<% else  %>
+
+<table>
+  <thead>
+  <tr>
+    <th>Item</th>
+    <th></th>
+    <th></th>
+    <th>Price</th>
+    <th colspan="5"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @cart.cart_items.each do |cart_item| %>
+
+    <tr>
+        <td><%= link_to cart_item.product.title, cart_item.product %></td>
+        <td></td>
+        <td></td>
+        <td align="right"> <%= cart_item.product.price %></td>
+        <td></td>
+      <% if @cart.status  %>
+        <td><%= button_to 'Remove. Please don\'t click this.', cart_item, method: :delete %></td>
+      <% end  %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+</p>
+
+
+
+  <table>
+    <thead>
+    <tr>
+
+      <% if @cart.status %>
+            <th>Subtotal:</th>
+      <% else  %>
+            <th>Total:</th>
+      <% end %>
+      <th></th>
+      <th></th>
+      <th align="right"><%= @cart.subtotal %></th>
+    </tr>
+    </thead>
+  </table>
+
+
+<% end  %>
+
+<br>
+<br>
+
+<% if @cart.status  %>
+    <%= link_to 'Keep Shopping! Buy More Things!', root_path %>
+    <br>
+    <br>
+    <!--<%= link_to 'Checkout', new_checkout_path %>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<%= button_to 'Checkout', new_checkout_path(user_id: @cart.user, cart_id: @cart), method: :post %>-->
+    <%= button_to 'Checkout', new_checkout_path, method: :get %>
+      <br>
+      <br>
+
+<% else %>
+    <hr><br>
+    <strong>Order Placed On:  </strong><%= @cart.checkout.created_at  %><br>
+    <strong>Billed To:  </strong><%= @cart.checkout.billname  %><br>
+    <strong>Card Ending In:  </strong><%= @cart.checkout.cardnumber[-4 .. -1]  %><br>
+      <br>
+    <strong>Shipped To:  </strong><%= @cart.checkout.shipname %>, <%= @cart.checkout.shipstreet %>, <%= @cart.checkout.shipcity %>, <%= @cart.checkout.shipstate %> <%= @cart.checkout.shipzip %><br>
+
+
+
+<% end %>
+
+<br>
+
+<%= link_to 'Back to Account Info', current_user, method: :get %>
+
+

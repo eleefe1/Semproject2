@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Your Info</h3>
+<hr>
+
+<% if current_user  %>
+    <% if current_user.admin  %>
+        <h5>You are an administrator.</h5>
+    <% end  %>
+<% end  %>
+
+<p>
+  <strong>First name:</strong>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>User ID:</strong>
+  <%= @user.id %>
+</p>
+
+<%= link_to 'Edit Account Info', edit_user_path(@user) %><br>
+<% if @user.checkout !=nil %>
+    <%= link_to 'Edit Saved Checkout Info', edit_checkout_path(@user.checkout) %><br>
+    <%= link_to 'Delete Saved Checkout Info', @user.checkout, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end  %>
+<br>
+<br>
+
+<h3>Your Orders</h3>
+
+<hr>
+
+<% @user.carts.reverse.each do |cart| %>
+
+    <p>
+      <strong>Order Number:</strong>
+      <%= cart.id %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <% if cart.status %>
+        Active
+      <% else %>
+        Completed
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Subtotal:</strong>
+      <%= cart.subtotal %>
+    </p>
+
+    <% if cart.status  %>
+         <%= link_to 'View Current Cart', cart %>
+    <% else  %>
+        <%= link_to 'View Receipt', cart %>
+    <% end  %>
+
+    <p>
+      -----------------------------------------
+    </p>
+
+    <% end %>
+
+

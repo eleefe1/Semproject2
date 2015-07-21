@@ -1,0 +1,52 @@
+# == Schema Information
+#
+# Table name: checkouts
+#
+#  id         :integer          not null, primary key
+#  shipname   :string
+#  shipstreet :string
+#  shipcity   :string
+#  billname   :string
+#  billstreet :string
+#  billcity   :string
+#  cardnumber :string
+#  cardmonth  :integer
+#  cardyear   :integer
+#  cardcvv    :integer
+#  cart_id    :integer
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  cardtype   :string
+#  cardzip    :integer
+#  cardstate  :string
+#  shipzip    :integer
+#  shipstate  :string
+#  saved      :boolean
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipname: MyString
+  shipstreet: MyString
+  shipcity: MyString
+  billname: MyString
+  billstreet: MyString
+  billcity: MyString
+  cardnumber: MyString
+  cardmonth: 1
+  cardyear: 1
+  cardcvv: 1
+
+two:
+  shipname: MyString
+  shipstreet: MyString
+  shipcity: MyString
+  billname: MyString
+  billstreet: MyString
+  billcity: MyString
+  cardnumber: MyString
+  cardmonth: 1
+  cardyear: 1
+  cardcvv: 1

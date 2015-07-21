@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <title>Thing Store</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div style="float:left">
+  <%= link_to 'Back to Main', root_path %>
+</div>
+
+<div style="float:none">
+  <div style="text-align: center;"><h2>Thing Store</h2></div>
+</div>
+
+<div style="float: right;">
+
+  <% if current_user %>
+
+      <!--<span><%= current_user.full_name %></span>-->
+      <%= link_to "#{current_user.full_name}", current_user, method: :get %>
+      <%= link_to 'Logout', session_logout_path, method: :delete %>
+      <br>
+      <%= link_to "Items in Cart: #{current_user.carts.last.cart_items.count} ($#{current_user.carts.last.subtotal})", current_user.carts.last, method: :get %>
+      <!--<%= link_to 'Account Info', current_user, method: :get %>-->
+
+
+  <% else %>
+      <%= link_to 'Login', session_login_path %>
+      <%= link_to 'Signup', new_user_path %>
+
+  <% end %>
+
+</div>
+
+<div style="float: none;"></div>
+
+<br/>
+<br/>
+
+
+<%= yield %>
+
+</body>
+</html>

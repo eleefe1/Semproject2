@@ -1,0 +1,160 @@
+<%= form_for(@checkout) do |f| %>
+  <% if @checkout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@checkout.errors.count, "error") %> prohibited this checkout from being saved:</h2>
+
+      <ul>
+      <% @checkout.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <h3>THIS IS NOT A SECURE CONNECTION. DON'T ENTER REAL INFORMATION.... YET....</h3><br>
+
+    <% if current_user.checkout == nil  %>
+
+    <h3>Shipping Information</h3>
+
+    <div class="field">
+    <%= f.label :shipname, 'Ship to' %><br>
+    <%= f.text_field :shipname, :value => "#{current_user.full_name}" %>
+  </div>
+  <div class="field">
+    <%= f.label :shipstreet, 'Number & Street' %><br>
+    <%= f.text_field :shipstreet %>
+  </div>
+  <div class="field">
+    <%= f.label :shipcity, 'City' %><br>
+    <%= f.text_field :shipcity %><%= f.select :shipstate, %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %>
+  </div>
+    <div class="field">
+      <%= f.label :shipzip, 'Zip Code' %><br>
+      <%= f.number_field :shipzip %>
+    </div>
+
+
+    <h3>Billing Information</h3>
+  <div class="field">
+    <%= f.label :billname, 'Name' %><br>
+    <%= f.text_field :billname %>
+  </div>
+  <div class="field">
+    <%= f.label :billstreet, 'Street & Number' %><br>
+    <%= f.text_field :billstreet %>
+  </div>
+  <div class="field">
+    <%= f.label :billcity, 'City' %><br>
+    <%= f.text_field :billcity %><%= f.select :cardstate, %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %>
+  </div>
+    <div class="field">
+      <%= f.label :cardzip, 'Zip Code' %><br>
+      <%= f.number_field :cardzip %>
+    </div>
+    <div class="field">
+      <%= f.label :cardtype, 'Card Type' %><br>
+      <%= f.select :cardtype, ['American Express', 'MasterCard', 'Visa'] %>
+    </div>
+  <div class="field">
+    <%= f.label :cardnumber, 'Card Number' %><br>
+    <%= f.text_field :cardnumber %>
+  </div>
+  <div class="field">
+    <%= f.label :cardmonth, 'Expiration' %><br>
+    <!--<%= f.number_field :cardmonth %>-->
+
+    <%= f.select :cardmonth, ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %>     <%= f.select :cardyear, (2015 .. 2020) %>
+  </div>
+  <!--<div class="field">-->
+   <!-- <%= f.label :cardyear, 'Expiration Year' %><br> -->
+    <!--&lt;!&ndash;<%= f.number_field :cardyear %>&ndash;&gt;-->
+    <!--<%= f.select :cardyear, (2015 .. 2020) %>-->
+
+  <!--</div>-->
+    <div class="field">
+      <%= f.label :cardcvv, 'CVV Number' %><br>
+      <%= f.number_field :cardcvv %>
+    </div>
+    <div class="field">
+      <%= f.label :saved, 'Save this information?' %>
+      <%= f.check_box :saved %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Submit' %>
+    </div>
+
+
+
+<% else  %>
+
+<h3>Shipping Information</h3>
+
+<div class="field">
+  <%= f.label :shipname, 'Ship to' %><br>
+  <%= f.text_field :shipname, :value => "#{current_user.checkout.shipname}" %>
+</div>
+<div class="field">
+  <%= f.label :shipstreet, 'Number & Street' %><br>
+  <%= f.text_field :shipstreet, :value => "#{current_user.checkout.shipstreet}"  %>
+</div>
+<div class="field">
+  <%= f.label :shipcity, 'City' %><br>
+  <%= f.text_field :shipcity, :value => "#{current_user.checkout.shipcity}" %><%= f.select :shipstate, options_for_select( %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY), current_user.checkout.shipstate) %>
+</div>
+<div class="field">
+  <%= f.label :shipzip, 'Zip Code' %><br>
+  <%= f.number_field :shipzip, :value => "#{current_user.checkout.shipzip}" %>
+</div>
+
+
+<h3>Billing Information</h3>
+<div class="field">
+  <%= f.label :billname, 'Name' %><br>
+  <%= f.text_field :billname, :value => "#{current_user.checkout.billname}"   %>
+</div>
+<div class="field">
+  <%= f.label :billstreet, 'Street & Number' %><br>
+  <%= f.text_field :billstreet, :value => "#{current_user.checkout.billstreet}"   %>
+</div>
+<div class="field">
+  <%= f.label :billcity, 'City' %><br>
+  <%= f.text_field :billcity, :value => "#{current_user.checkout.billstreet}"   %><%= f.select :cardstate, options_for_select( %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY), current_user.checkout.cardstate) %>
+</div>
+<div class="field">
+  <%= f.label :cardzip, 'Zip Code' %><br>
+  <%= f.number_field :cardzip, :value => "#{current_user.checkout.cardzip}"   %>
+</div>
+<div class="field">
+  <%= f.label :cardtype, 'Card Type' %><br>
+  <%= f.select :cardtype, options_for_select( ['American Express', 'MasterCard', 'Visa'], current_user.checkout.cardtype)  %>
+</div>
+<div class="field">
+  <%= f.label :cardnumber, 'Card Number' %><br>
+  <%= f.text_field :cardnumber, :value => "#{current_user.checkout.cardnumber}"   %>
+</div>
+<div class="field">
+  <%= f.label :cardmonth, 'Expiration' %><br>
+  <!--<%= f.number_field :cardmonth %>-->
+
+  <%= f.select :cardmonth, options_for_select( (1..12), current_user.checkout.cardmonth) %>     <%= f.select :cardyear, options_for_select( (2015 .. 2020), current_user.checkout.cardyear) %>
+</div>
+<!--<div class="field">-->
+<!-- <%= f.label :cardyear, 'Expiration Year' %><br> -->
+<!--&lt;!&ndash;<%= f.number_field :cardyear %>&ndash;&gt;-->
+<!--<%= f.select :cardyear, options_for_select( (2015 .. 2020), current_user.checkout.cardyear) %>-->
+
+<!--</div>-->
+<div class="field">
+  <%= f.label :cardcvv, 'CVV Number' %><br>
+  <%= f.number_field :cardcvv, :value => "#{current_user.checkout.cardcvv}"   %>
+</div>
+        <div class="field">
+          <%= f.label :saved, 'Save this information for future orders?' %>
+          <%= f.check_box :saved, :input_html =>{ :value => '1'} %>
+        </div>
+<div class="actions">
+  <%= f.submit 'Submit' %>
+</div>
+<% end %>
+<% end %>

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shipname:</strong>
+  <%= @checkout.shipname %>
+</p>
+
+<p>
+  <strong>Shipstreet:</strong>
+  <%= @checkout.shipstreet %>
+</p>
+
+<p>
+  <strong>Shipcity:</strong>
+  <%= @checkout.shipcity %>
+</p>
+
+<p>
+  <strong>Billname:</strong>
+  <%= @checkout.billname %>
+</p>
+
+<p>
+  <strong>Billstreet:</strong>
+  <%= @checkout.billstreet %>
+</p>
+
+<p>
+  <strong>Billcity:</strong>
+  <%= @checkout.billcity %>
+</p>
+
+<p>
+  <strong>Cardnumber:</strong>
+  <%= @checkout.cardnumber %>
+</p>
+
+<p>
+  <strong>Cardmonth:</strong>
+  <%= @checkout.cardmonth %>
+</p>
+
+<p>
+  <strong>Cardyear:</strong>
+  <%= @checkout.cardyear %>
+</p>
+
+<p>
+  <strong>Cardcvv:</strong>
+  <%= @checkout.cardcvv %>
+</p>
+
+<%= link_to 'Edit', edit_checkout_path(@checkout) %> |
+<%= link_to 'Back', checkouts_path %>
