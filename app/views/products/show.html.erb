@@ -1,31 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+<div class="row">
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+  <div class="col-xs-4">
+    <%= image_tag("#{@product.id}.jpg", size: '300x300') %>
+  </div>
+
+  <div class="col-xs-8">
+      <h2><%= @product.title %></h2><br/>
+
+    <p>
+      <h4>Description</h4>
+      <%= @product.description %><br/>
+    </p>
+    <br/>
+    <p>
+      <h4>Price: <small><%= @product.price %></small></h4>
+    </p>
+
+    <% if current_user %>
+
+        <!--<%= render partial: 'cart_items/form', locals: {product: @product, cart: @cart} %>-->
+
+        <%= button_to 'Add to Cart', cart_items_path(product_id: @product, cart_id: @cart), method: :post %>
 
 
-<% if current_user %>
+    <% else %>
+        <%= link_to 'Login or Sign Up to Purchase', session_login_path %>
+    <% end %>
+  </div>
 
-    <!--<%= render partial: 'cart_items/form', locals: {product: @product, cart: @cart} %>-->
-
-    <%= button_to 'Add to Cart', cart_items_path(product_id: @product, cart_id: @cart), method: :post %>
+</div>
 
 
-<% else %>
-    <%= link_to 'Login or Sign Up to Purchase', session_login_path %>
-<% end %>
+
 
 <br/>
 <br/>
